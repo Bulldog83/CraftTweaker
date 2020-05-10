@@ -227,7 +227,7 @@ public class BracketHandlers {
         if(split.length != 1)
             throw new IllegalArgumentException("Could not get axis with name: <directionaxis:" + tokens + ">! Syntax is <directionaxis:axis>");
         
-        if(Direction.Axis.byName(split[0]) != null) {
+        if(Direction.Axis.byName(split[0]) == null) {
             throw new IllegalArgumentException("Could not get axis with name: <directionaxis:" + tokens + ">! Axis does not appear to exist!");
         }
         return MCDirectionAxis.getAxis(Direction.Axis.byName(split[0]));
