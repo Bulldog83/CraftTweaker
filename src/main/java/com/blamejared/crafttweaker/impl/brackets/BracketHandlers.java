@@ -14,6 +14,7 @@ import com.blamejared.crafttweaker.impl.managers.RecipeManagerWrapper;
 import com.blamejared.crafttweaker.impl.potion.MCEffect;
 import com.blamejared.crafttweaker.impl.potion.MCPotion;
 import com.blamejared.crafttweaker.impl.tag.MCTag;
+import com.blamejared.crafttweaker.impl.text.MCTextFormatting;
 import com.blamejared.crafttweaker.impl.util.MCDirectionAxis;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityClassification;
@@ -24,6 +25,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.openzen.zencode.java.ZenCodeType;
 
@@ -236,4 +238,24 @@ public class BracketHandlers {
         return Arrays.stream(Direction.Axis.values()).map(key -> "<directionaxis:" + key + ">").collect(Collectors.toList());
     }
     
+    
+    @BracketResolver("formatting")
+    public static MCTextFormatting getTextFormatting(String tokens) {
+        if(!tokens.toLowerCase(Locale.ENGLISH).equals(tokens))
+            CraftTweakerAPI.logWarning("Formatting BEP <formatting:%s> does not seem to be lower-cased!", tokens);
+        
+        final String[] split = tokens.split(":");
+        if(split.length != 1)
+            throw new IllegalArgumentException("Could not get format with name: <formatting:" + tokens + ">! Syntax is <formatting:format>");
+        
+        if(TextFormatting.getValueByName(split[0]) != null) {
+            throw new IllegalArgumentException("Could not get format with name: <formatting:" + tokens + ">! format does not appear to exist!");
+        }
+        return new MCTextFormatting(TextFormatting.getValueByName(split[0]));
+    }
+    
+    @BracketDumper("formatting")
+    public static Collection<String> getTextFormattingDump() {
+        return Arrays.stream(TextFormatting.values()).map(key -> "<formatting:" + key + ">").collect(Collectors.toList());
+    }
 }

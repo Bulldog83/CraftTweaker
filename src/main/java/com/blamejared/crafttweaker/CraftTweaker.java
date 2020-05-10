@@ -83,7 +83,6 @@ public class CraftTweaker {
         SHAPED_SERIALIZER = new SerializerShaped().setRegistryName(new ResourceLocation("crafttweaker:shaped"));
         SCRIPT_SERIALIZER = new SerializerScript().setRegistryName(new ResourceLocation("crafttweaker:scripts"));
 
-
         ForgeRegistries.RECIPE_SERIALIZERS.register(SHAPELESS_SERIALIZER);
         ForgeRegistries.RECIPE_SERIALIZERS.register(SHAPED_SERIALIZER);
         ForgeRegistries.RECIPE_SERIALIZERS.register(SCRIPT_SERIALIZER);

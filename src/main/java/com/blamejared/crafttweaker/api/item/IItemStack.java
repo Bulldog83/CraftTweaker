@@ -353,6 +353,10 @@ public interface IItemStack extends IIngredient {
         CraftTweakerAPI.apply(new ActionSetBurnTime(this, time));
     }
     
+    default void clearTooltip(){
+    
+    }
+    
     /**
      * Gets the internal {@link ItemStack} for this IItemStack.
      *
