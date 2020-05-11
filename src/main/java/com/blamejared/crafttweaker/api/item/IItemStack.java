@@ -6,13 +6,17 @@ import com.blamejared.crafttweaker.api.annotations.ZenRegister;
 import com.blamejared.crafttweaker.api.data.IData;
 import com.blamejared.crafttweaker.api.data.NBTConverter;
 import com.blamejared.crafttweaker.impl.actions.items.ActionSetBurnTime;
+import com.blamejared.crafttweaker.impl.actions.items.tooltips.*;
 import com.blamejared.crafttweaker.impl.food.MCFood;
+import com.blamejared.crafttweaker.impl.text.MCTextComponent;
 import com.blamejared.crafttweaker_annotations.annotations.Document;
 import com.blamejared.crafttweaker_annotations.annotations.ZenWrapper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.ForgeHooks;
 import org.openzen.zencode.java.ZenCodeType;
+
+import java.util.regex.Pattern;
 
 /**
  * This represents an item.
@@ -243,7 +247,6 @@ public interface IItemStack extends IIngredient {
      * @param tag The tag to set.
      *
      * @return This itemStack if it is mutable, a new one with the changed property otherwise
-     *
      * @docParam tag {Display: {lore: ["Hello"]}}
      */
     @ZenCodeType.Method
@@ -353,9 +356,21 @@ public interface IItemStack extends IIngredient {
         CraftTweakerAPI.apply(new ActionSetBurnTime(this, time));
     }
     
-    default void clearTooltip(){
-    
+    @ZenCodeType.Method
+    default void clearTooltip() {
+        CraftTweakerAPI.apply(new ActionClearTooltip(this));
     }
+    
+    @ZenCodeType.Method
+    default void addTooltip(MCTextComponent content) {
+        CraftTweakerAPI.apply(new ActionAddTooltip(this, content));
+    }
+    
+    @ZenCodeType.Method
+    default void removeTooltip(String regex) {
+        CraftTweakerAPI.apply(new ActionRemoveRegexTooltip(this, Pattern.compile(regex)));
+    }
+    
     
     /**
      * Gets the internal {@link ItemStack} for this IItemStack.

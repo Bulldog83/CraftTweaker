@@ -1,12 +1,13 @@
 package com.blamejared.crafttweaker.impl.text;
 
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;
+import com.blamejared.crafttweaker.api.brackets.CommandStringDisplayable;
 import net.minecraft.util.text.TextFormatting;
 import org.openzen.zencode.java.ZenCodeType;
 
 @ZenRegister
 @ZenCodeType.Name("crafttweaker.api.text.TextFormatting")
-public class MCTextFormatting {
+public class MCTextFormatting implements CommandStringDisplayable {
     
     private final TextFormatting internal;
     
@@ -41,5 +42,10 @@ public class MCTextFormatting {
     
     public TextFormatting getInternal() {
         return internal;
+    }
+    
+    @Override
+    public String getCommandString() {
+        return "<formatting:" + getInternal().getFriendlyName() + ">";
     }
 }

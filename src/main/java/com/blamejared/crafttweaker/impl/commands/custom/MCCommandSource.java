@@ -2,7 +2,7 @@ package com.blamejared.crafttweaker.impl.commands.custom;
 
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;
-import com.blamejared.crafttweaker.impl.entity.player.MCPlayerEntity;
+//import com.blamejared.crafttweaker.impl.entity.player.MCPlayerEntity;
 import com.blamejared.crafttweaker_annotations.annotations.Document;
 import com.blamejared.crafttweaker_annotations.annotations.ZenWrapper;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -80,16 +80,16 @@ public class MCCommandSource {
         return internal.getEntity() instanceof ServerPlayerEntity;
     }
     
-    @ZenCodeType.Method
-    @ZenCodeType.Nullable
-    public MCPlayerEntity getPlayer() {
-        try {
-            return new MCPlayerEntity(internal.asPlayer());
-        } catch(CommandSyntaxException e) {
-            CraftTweakerAPI.logError("Could not get Player: %s", e);
-            return null;
-        }
-    }
+//    @ZenCodeType.Method
+//    @ZenCodeType.Nullable
+//    public MCPlayerEntity getPlayer() {
+//        try {
+//            return new MCPlayerEntity(internal.asPlayer());
+//        } catch(CommandSyntaxException e) {
+//            CraftTweakerAPI.logError("Could not get Player: %s", e);
+//            return null;
+//        }
+//    }
     
     @ZenCodeType.Method
     public void sendErrorMessage(String message) {

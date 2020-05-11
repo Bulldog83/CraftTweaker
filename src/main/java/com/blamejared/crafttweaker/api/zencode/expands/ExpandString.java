@@ -3,6 +3,7 @@ package com.blamejared.crafttweaker.api.zencode.expands;
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;
 import com.blamejared.crafttweaker.api.data.IData;
 import com.blamejared.crafttweaker.impl.data.StringData;
+import com.blamejared.crafttweaker.impl.text.MCTextComponent;
 import org.openzen.zencode.java.ZenCodeType;
 
 @ZenRegister
@@ -31,6 +32,11 @@ public class ExpandString {
         } catch(NumberFormatException e) {
             throw new NumberFormatException("\"" + value + "\" is not a double!");
         }
+    }
+    
+    @ZenCodeType.Caster(implicit = true)
+    public static MCTextComponent asTextComponent(String value) {
+        return new MCTextComponent(value);
     }
     
 }

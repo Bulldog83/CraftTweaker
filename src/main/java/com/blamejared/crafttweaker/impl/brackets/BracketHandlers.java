@@ -248,7 +248,13 @@ public class BracketHandlers {
         if(split.length != 1)
             throw new IllegalArgumentException("Could not get format with name: <formatting:" + tokens + ">! Syntax is <formatting:format>");
         
-        if(TextFormatting.getValueByName(split[0]) != null) {
+//        TextFormatting format = null;
+//        for(TextFormatting value : TextFormatting.values()) {
+//            if(value.getFriendlyName().equals(split[0])){
+//                format = value;
+//            }
+//        }
+        if(TextFormatting.getValueByName(split[0]) == null) {
             throw new IllegalArgumentException("Could not get format with name: <formatting:" + tokens + ">! format does not appear to exist!");
         }
         return new MCTextFormatting(TextFormatting.getValueByName(split[0]));
@@ -256,6 +262,6 @@ public class BracketHandlers {
     
     @BracketDumper("formatting")
     public static Collection<String> getTextFormattingDump() {
-        return Arrays.stream(TextFormatting.values()).map(key -> "<formatting:" + key + ">").collect(Collectors.toList());
+        return Arrays.stream(TextFormatting.values()).map(key -> "<formatting:" + key.getFriendlyName() + ">").collect(Collectors.toList());
     }
 }

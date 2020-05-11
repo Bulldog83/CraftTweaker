@@ -1,9 +1,12 @@
 package com.blamejared.crafttweaker.impl.actions.items.tooltips;
 
-import com.blamejared.crafttweaker.api.actions.IUndoableAction;
+import com.blamejared.crafttweaker.api.actions.*;
 import com.blamejared.crafttweaker.api.item.IItemStack;
+import com.blamejared.crafttweaker.impl.events.CTEventHandler;
 
-public class ActionClearTooltip implements IUndoableAction {
+import java.util.LinkedList;
+
+public class ActionClearTooltip implements IRuntimeAction {
     
     private IItemStack stack;
     
@@ -13,23 +16,15 @@ public class ActionClearTooltip implements IUndoableAction {
     
     @Override
     public void apply() {
-    
+        
+        CTEventHandler.TOOLTIPS.computeIfAbsent(stack, iItemStack -> new LinkedList<>()).add((stack1, tooltip, isAdvanced) -> {
+            tooltip.clear();
+        });
     }
     
     @Override
     public String describe() {
         return "Clearing the tooltip for: " + stack.getCommandString();
     }
-    
-    @Override
-    public void undo() {
-    
-    }
-    
-    @Override
-    public String describeUndo() {
-        return "Unclearing the tooltip for: " + stack.getCommandString();
-    }
-    
     
 }
